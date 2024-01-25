@@ -1,31 +1,9 @@
-<script>
-import axios from 'axios'
-export default {
-  name: 'ProductsView',
-  data() {
-    return {
-      products: []
-    }
-  },
-  mounted() {
-    this.getProducts()
-  },
-  methods: {
-    getProducts() {
-      axios.get('http://localhost:8000/api/products').then((response) => {
-        this.products = response.data.data
-      })
-    }
-  }
-}
-</script>
-
 <template>
   <main class="container py-4">
     <div class="card p-4">
       <div class="d-flex justify-content-between mb-4">
         <h1 class="text-center">Products</h1>
-        <button class="btn btn-primary">Add Product</button>
+        <RouterLink class="btn btn-primary" to="/products/create">Add Product</RouterLink>
       </div>
       <table class="table table-striped table-bordered">
         <thead>
@@ -57,3 +35,25 @@ export default {
     </div>
   </main>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+  name: 'ProductsView',
+  data() {
+    return {
+      products: []
+    }
+  },
+  mounted() {
+    this.getProducts()
+  },
+  methods: {
+    getProducts() {
+      axios.get('http://localhost:8000/api/products').then((response) => {
+        this.products = response.data.data
+      })
+    }
+  }
+}
+</script>
