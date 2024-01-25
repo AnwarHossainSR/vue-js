@@ -1,7 +1,7 @@
 <template>
   <main class="container py-4">
     <div class="card p-4">
-      <div class="d-flex justify-content-between mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-center">Products</h1>
         <RouterLink class="btn btn-primary" to="/products/create">Add Product</RouterLink>
       </div>

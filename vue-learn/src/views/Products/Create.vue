@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -30,13 +32,21 @@ export default {
     }
   },
   methods: {
-    createProduct() {
-      // You can perform any logic here to handle the creation of the product
-      console.log('Product Name:', this.productName)
-      console.log('Product Detail:', this.productDetail)
+    async createProduct() {
+      //call api to create product
+      const product = {
+        name: this.productName,
+        detail: this.productDetail
+      }
 
-      // For a real application, you might want to send the data to a server using API calls.
-      // Here, we are just logging the data for demonstration purposes.
+      let response = await axios.post('http://localhost:8000/api/products', product)
+
+      if (response.status === 201) {
+        this.$toast.open('Created')
+        this.$router.push({ name: 'ProductsIndex' })
+      } else {
+        this.$toast.open('Something went wrong!')
+      }
     }
   }
 }
