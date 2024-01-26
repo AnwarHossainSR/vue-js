@@ -12,6 +12,7 @@
             <th scope="col">Name</th>
             <th scope="col">Details</th>
             <th scope="col">Created At</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody v-if="products.length > 0">
