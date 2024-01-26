@@ -17,15 +17,15 @@
         </thead>
         <tbody v-if="products.length > 0">
           <tr v-for="(product, index) in products" :key="index">
-            <th scope="row">{{ index + 1 }}</th>
+            <th scope="row">{{ product.id }}</th>
             <td>{{ product.name }}</td>
             <td>{{ product.detail }}</td>
-            <td>{{ product.created_at }}</td>
+            <td>{{ formattedDate(product.created_at) }}</td>
             <td>
               <RouterLink class="btn btn-primary" :to="`/products/${product.id}/edit`"
                 >Edit</RouterLink
               >
-              <button class="btn btn-danger ml-1">Delete</button>
+              <button class="btn btn-danger ml-1" @click="confirmDelete(product.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -41,6 +41,7 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 export default {
   name: 'ProductsView',
   data() {
@@ -56,6 +57,40 @@ export default {
       axios.get('http://localhost:8000/api/products').then((response) => {
         this.products = response.data.data
       })
+    },
+    formattedDate(date) {
+      // Format the date using the Date object and return the formatted string
+      const formattedDate = new Date(date).toLocaleString() // Adjust the format based on your requirements
+      return formattedDate
+    },
+    confirmDelete(productId) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this product!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteProduct(productId)
+        }
+      })
+    },
+
+    deleteProduct(productId) {
+      axios
+        .delete(`http://localhost:8000/api/products/${productId}`)
+        .then(() => {
+          // Remove the deleted product from the products array
+          this.products = this.products.filter((product) => product.id !== productId)
+          Swal.fire('Deleted!', 'Your product has been deleted.', 'success')
+        })
+        .catch((error) => {
+          console.error('Error deleting product:', error)
+          Swal.fire('Error', 'Unable to delete the product.', 'error')
+        })
     }
   }
 }
