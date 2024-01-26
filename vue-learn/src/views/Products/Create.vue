@@ -42,10 +42,18 @@ export default {
       let response = await axios.post('http://localhost:8000/api/products', product)
 
       if (response.status === 201) {
-        this.$toast.open('Created')
+        this.$notify({
+          title: 'Success',
+          text: 'Product created successfully',
+          type: 'success'
+        })
         this.$router.push({ name: 'ProductsIndex' })
       } else {
-        this.$toast.open('Something went wrong!')
+        this.$notify({
+          title: 'Error',
+          text: 'Something went wrong',
+          type: 'error'
+        })
       }
     }
   }

@@ -19,4 +19,5 @@ import { RouterLink, RouterView } from 'vue-router'
   </nav>
 
   <RouterView />
+  <notifications position="top right" :width="400" />
 </template>

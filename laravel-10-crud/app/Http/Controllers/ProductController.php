@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        //return all products as desc order
+        $products = Product::latest()->get();
 
         //return as json
         return response()->json([
@@ -70,8 +71,7 @@ class ProductController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Product updated successfully',
-            'data' => $product
+            'message' => 'Product updated successfully'
         ], Response::HTTP_OK);
     }
 
