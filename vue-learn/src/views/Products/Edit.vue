@@ -54,8 +54,25 @@ export default {
       }
     },
     editProduct() {
-      //   try {
-      //   } catch (error) {}
+      try {
+        axios.put(`http://localhost:8000/api/products/${this.productId}`, {
+          name: this.productName,
+          detail: this.productDetail
+        })
+        this.$notify({
+          title: 'Success',
+          text: 'Product updated successfully',
+          type: 'success'
+        })
+        this.$router.push({ name: 'ProductsIndex' })
+      } catch (error) {
+        console.log(error)
+        this.$notify({
+          title: 'Error',
+          text: error.response.data.message,
+          type: 'error'
+        })
+      }
     }
   }
 }
