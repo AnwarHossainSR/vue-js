@@ -21,7 +21,9 @@
             <td>{{ product.detail }}</td>
             <td>{{ product.created_at }}</td>
             <td>
-              <RouterLink class="btn btn-primary" to="/">Edit</RouterLink>
+              <RouterLink class="btn btn-primary" :to="`/products/${product.id}/edit`"
+                >Edit</RouterLink
+              >
               <button class="btn btn-danger ml-1">Delete</button>
             </td>
           </tr>

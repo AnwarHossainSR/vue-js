@@ -71,8 +71,7 @@ class ProductController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Product updated successfully',
-            'data' => $product
+            'message' => 'Product updated successfully'
         ], Response::HTTP_OK);
     }
 
